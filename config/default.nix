@@ -1,5 +1,5 @@
 let
-  foo = true;
+  x = 1;
 in
 {
   # Import all your configuration modules here
@@ -7,10 +7,21 @@ in
     ./bufferline.nix
     ./lualine.nix
     ./git.nix
+    ./auto-pairs.nix
+    ./cmp.nix
+    ./treesitter.nix
+    ./lightbulb.nix
+    ./comment.nix
+    ./vimwiki.nix
+
+    # lsp
     ./lsp.nix
+    ./none-ls.nix
+    ./fidget.nix
   ];
 
-  colorschemes.gruvbox.enable = foo;
+
+  colorschemes.gruvbox.enable = true;
 
   extraConfigVim = ''
     autocmd BufWritePre * lua vim.lsp.buf.format()
@@ -40,9 +51,12 @@ in
 
     clipboard = "unnamedplus"; # Use system clipboard
 
-    ignorecase = true; # make searches with lower case characters case insensitive
-    smartcase = true; # search is case sensitive only if it contains uppercase chars
-    inccommand = "nosplit"; # show preview in buffer while doing find and replace
+    ignorecase =
+      true; # make searches with lower case characters case insensitive
+    smartcase =
+      true; # search is case sensitive only if it contains uppercase chars
+    inccommand =
+      "nosplit"; # show preview in buffer while doing find and replace
 
     ai = true; # Copy indent from current line when starting a new one
     autoread = true; # Set to auto read when a file is changed from the outside
