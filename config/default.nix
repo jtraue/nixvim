@@ -13,6 +13,8 @@ in
     ./lightbulb.nix
     ./comment.nix
     ./vimwiki.nix
+    ./markdown-preview.nix
+    ./goyo.nix
 
     # lsp
     ./lsp.nix

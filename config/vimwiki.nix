@@ -57,13 +57,6 @@ in
     })
 
     vim.cmd("autocmd VimEnter * nested if argc() == 0 | execute 'VimwikiIndex' | endif")
-    -- vim.api.nvim_create_autocmd("VimEnter", {
-    --     callback = function()
-    --         if vim.fn.argc() == 0 then
-    --             vim.cmd('VimwikiIndex')
-    --         end
-    --     end
-    -- })
   '';
 }
 
