@@ -1,14 +1,44 @@
+let
+  foo = true;
+in
 {
   # Import all your configuration modules here
   imports = [
     ./bufferline.nix
     ./lualine.nix
     ./git.nix
+    ./lsp.nix
   ];
 
-  colorschemes.gruvbox.enable = true;
+  colorschemes.gruvbox.enable = foo;
+
+  extraConfigVim = ''
+    autocmd BufWritePre * lua vim.lsp.buf.format()
+  '';
+
+  globals.mapleader = " ";
+
+  keymaps = [
+    {
+      key = "<C-k>";
+      action = ":bnext<CR>";
+      options.desc = "Next buffer";
+    }
+    {
+      key = "<C-j>";
+      action = ":bprevious<CR>";
+      options.desc = "Previous buffer";
+    }
+    {
+      key = "<leader>fm";
+      action = "<CMD>lua vim.lsp.buf.format()<CR>";
+      options.desc = "Format current buffer";
+    }
+  ];
 
   opts = {
+
+    clipboard = "unnamedplus"; # Use system clipboard
 
     ignorecase = true; # make searches with lower case characters case insensitive
     smartcase = true; # search is case sensitive only if it contains uppercase chars

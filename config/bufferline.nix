@@ -2,4 +2,5 @@
   plugins.bufferline = {
     enable = true;
   };
+
 }
