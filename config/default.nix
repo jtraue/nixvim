@@ -15,6 +15,7 @@ in
     ./vimwiki.nix
     ./markdown-preview.nix
     ./goyo.nix
+    ./telescope.nix
 
     # lsp
     ./lsp.nix
