@@ -1,8 +1,4 @@
-let
-  x = 1;
-in
 {
-  # Import all your configuration modules here
   imports = [
     ./bufferline.nix
     ./lualine.nix
@@ -10,17 +6,23 @@ in
     ./auto-pairs.nix
     ./cmp.nix
     ./treesitter.nix
-    ./lightbulb.nix
+
     ./comment.nix
+
     ./vimwiki.nix
     ./markdown-preview.nix
     ./goyo.nix
+
+
     ./telescope.nix
 
     # lsp
     ./lsp.nix
     ./none-ls.nix
     ./fidget.nix
+
+    ./which-key.nix
+
   ];
 
 
@@ -47,6 +49,18 @@ in
       key = "<leader>fm";
       action = "<CMD>lua vim.lsp.buf.format()<CR>";
       options.desc = "Format current buffer";
+    }
+    {
+      key = "<F1>";
+      mode = "v";
+      action = "<Plug>(comment_toggle_linewise_visual)";
+      options.desc = "Toggle comment";
+    }
+    {
+      key = "<F1>";
+      mode = "n";
+      action = "<Plug>(comment_toggle_linewise_current)";
+      options.desc = "Toggle comment";
     }
   ];
 
@@ -94,7 +108,7 @@ in
     smarttab = true; # Be smart when using tabs ;)
     spell = true; # enable spell checking
     spelllang = "en"; # default spellcheck language
-    tabstop = 4; # ...
+    softtabstop = 4; # ...
     tm = 500; # ...
     tw = 500; # text width
     wildmenu = true; # enhanced command-line completion mode
