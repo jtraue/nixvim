@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ./bufferline.nix
@@ -25,6 +26,9 @@
 
   ];
 
+  extraPlugins = with pkgs.vimPlugins; [
+    telescope-emoji-nvim
+  ];
 
   colorschemes.gruvbox.enable = true;
 

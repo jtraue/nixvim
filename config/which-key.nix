@@ -1,9 +1,9 @@
 {
   plugins.which-key = {
     enable = true;
-    popupMappings = {
-      scrollDown = "<c-d>";
-      scrollUp = "<c-u>";
+    settings.keys = {
+      scroll_down = "<c-d>";
+      scroll_up = "<c-u>";
     };
   };
 }

@@ -6,7 +6,7 @@
       servers = {
         bashls.enable = true;
         nixd.enable = true;
-        rust-analyzer = {
+        rust_analyzer = {
           enable = true;
           installCargo = false;
           installRustc = false;
@@ -17,9 +17,7 @@
 
     lspsaga = {
       enable = true;
-      codeAction = {
-        extendGitSigns = true;
-      };
+      settings.code_action.extend_git_signs = true;
     };
   };
 
