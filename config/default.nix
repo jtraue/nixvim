@@ -10,11 +10,6 @@
 
     ./comment.nix
 
-    ./vimwiki.nix
-    ./markdown-preview.nix
-    ./goyo.nix
-
-
     ./telescope.nix
 
     # lsp
@@ -24,6 +19,9 @@
 
     ./which-key.nix
 
+    # languages
+    ./languages/bash.nix
+    ./languages/nix.nix
   ];
 
   extraPlugins = with pkgs.vimPlugins; [

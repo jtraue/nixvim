@@ -3,16 +3,6 @@
     trouble.enable = true;
     lsp = {
       enable = true;
-      servers = {
-        bashls.enable = true;
-        nixd.enable = true;
-        rust_analyzer = {
-          enable = true;
-          installCargo = false;
-          installRustc = false;
-        };
-        clangd.enable = true;
-      };
     };
 
     lspsaga = {
