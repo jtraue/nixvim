@@ -22,6 +22,7 @@
         let
           nixvimLib = nixvim.lib.${system};
           nixvim' = nixvim.legacyPackages.${system};
+
           nvim = nixvim'.makeNixvimWithModule {
             inherit pkgs;
             module = import ./config; # import the module directly
@@ -45,13 +46,20 @@
           };
         in
         {
-          checks = {
-            # Run `nix flake check .` to verify that your config is not broken
-            default = nixvimLib.check.mkTestDerivationFromNvim {
-              inherit nvim;
-              name = "nvim";
-            };
-          };
+          checks =
+            ({ system, inputs }:
+              builtins.mapAttrs
+                (name: nvim:
+                  inputs.nixvim.lib.${system}.check.mkTestDerivationFromNvim {
+                    nvim = nvim.extend {
+                      # some tests depend on git existing
+                      extraPackages = [ inputs.nixpkgs.legacyPackages.${system}.git ];
+                    };
+                    name = "check-${name}";
+                  }
+                )
+                (packages { inherit system inputs; }));
+
 
           packages = {
             # Lets you run `nix run .` to start nixvim
