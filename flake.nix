@@ -38,6 +38,8 @@
           };
           nvim-office = nvim.extend {
             imports = [
+              ./config/languages/bash.nix
+              ./config/languages/nix.nix
               ./config/vimwiki.nix
               ./config/markdown-preview.nix
               ./config/goyo.nix
@@ -50,6 +52,14 @@
             default = nixvimLib.check.mkTestDerivationFromNvim {
               inherit nvim;
               name = "nvim";
+            };
+            nvim-dev = nixvimLib.check.mkTestDerivationFromNvim {
+              nvim = nvim-dev;
+              name = "nvim-dev";
+            };
+            nvim-office = nixvimLib.check.mkTestDerivationFromNvim {
+              nvim = nvim-office;
+              name = "nvim-office";
             };
           };
 
