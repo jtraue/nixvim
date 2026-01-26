@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./options.nix
     ./bufferline.nix
     ./lualine.nix
     ./git.nix

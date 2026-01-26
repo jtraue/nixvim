@@ -3,8 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixvim.url = "github:nix-community/nixvim";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -70,5 +76,22 @@
             inherit nvim-office;
           };
         };
+
+      flake = {
+        lib = {
+          # Function for users to configure NixVim with custom options
+          nixvimConfiguration = { pkgs ? null, system ? "x86_64-linux", userConfig }:
+            let
+              actualPkgs = if pkgs != null then pkgs else inputs.nixpkgs.legacyPackages.${system};
+            in
+            nixvim.legacyPackages.${actualPkgs.system}.makeNixvimWithModule {
+              pkgs = actualPkgs;
+              module = {
+                imports = [ ./config ];
+                inherit (userConfig) myNixvim;
+              };
+            };
+        };
+      };
     };
 }
