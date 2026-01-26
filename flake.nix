@@ -36,20 +36,11 @@
               # inherit (inputs) foo;
             };
           };
-          nvim-dev = nvim.extend {
-            imports = [
-              ./config/languages/bash.nix
-              ./config/languages/nix.nix
-            ];
-          };
+          # nvim-dev uses the defaults (development with nix and bash enabled)
+          nvim-dev = nvim;
+          # nvim-office adds writing tools on top of default
           nvim-office = nvim.extend {
-            imports = [
-              ./config/languages/bash.nix
-              ./config/languages/nix.nix
-              ./config/vimwiki.nix
-              ./config/markdown-preview.nix
-              ./config/goyo.nix
-            ];
+            myNixvim.features.writing.enable = true;
           };
         in
         {

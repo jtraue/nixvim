@@ -2,27 +2,11 @@
 {
   imports = [
     ./options.nix
-    ./bufferline.nix
-    ./lualine.nix
-    ./git.nix
-    ./auto-pairs.nix
-    ./cmp.nix
-    ./treesitter.nix
-
-    ./comment.nix
-
-    ./telescope.nix
-
-    # lsp
-    ./lsp.nix
-    ./none-ls.nix
-    ./fidget.nix
-
-    ./which-key.nix
-
-    # languages
-    ./languages/bash.nix
-    ./languages/nix.nix
+    ./core.nix
+    ./completion.nix
+    ./development.nix
+    ./spellcheck.nix
+    ./writing.nix
   ];
 
   extraPlugins = with pkgs.vimPlugins; [
