@@ -36,8 +36,6 @@
               # inherit (inputs) foo;
             };
           };
-          # nvim-dev uses the defaults (development with nix and bash enabled)
-          nvim-dev = nvim;
           # nvim-full enables all features
           nvim-full = nvim.extend {
             myNixvim.features = {
@@ -54,10 +52,6 @@
               inherit nvim;
               name = "nvim";
             };
-            nvim-dev = nixvimLib.check.mkTestDerivationFromNvim {
-              nvim = nvim-dev;
-              name = "nvim-dev";
-            };
             nvim-full = nixvimLib.check.mkTestDerivationFromNvim {
               nvim = nvim-full;
               name = "nvim-full";
@@ -67,7 +61,6 @@
           packages = {
             # Lets you run `nix run .` to start nixvim
             default = nvim;
-            inherit nvim-dev;
             inherit nvim-full;
           };
         };
