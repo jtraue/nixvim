@@ -30,11 +30,7 @@
           nixvim' = nixvim.legacyPackages.${system};
           nvim = nixvim'.makeNixvimWithModule {
             inherit pkgs;
-            module = import ./config; # import the module directly
-            # You can use `extraSpecialArgs` to pass additional arguments to your module files
-            extraSpecialArgs = {
-              # inherit (inputs) foo;
-            };
+            module = import ./config;
           };
           # nvim-full enables all features
           nvim-full = nvim.extend {
@@ -68,6 +64,7 @@
       flake = {
         lib = {
           # Function for users to configure NixVim with custom options
+          # Note: I haven't tested passing pkgs and system yet
           nixvimConfiguration = { pkgs ? null, system ? "x86_64-linux", userConfig }:
             let
               actualPkgs = if pkgs != null then pkgs else inputs.nixpkgs.legacyPackages.${system};

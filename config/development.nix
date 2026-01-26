@@ -11,20 +11,13 @@ in
         enable = true;
 
         servers = {
-          # Nix language support
           nixd.enable = lib.mkIf cfg.nix.enable true;
-
-          # Bash language support
           bashls.enable = lib.mkIf cfg.bash.enable true;
-
-          # Rust language support
           rust_analyzer = lib.mkIf cfg.rust.enable {
             enable = true;
             installCargo = false;
             installRustc = false;
           };
-
-          # C++ language support
           clangd.enable = lib.mkIf cfg.cpp.enable true;
         };
       };

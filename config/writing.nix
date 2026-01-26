@@ -26,7 +26,6 @@ let
 in
 {
   config = lib.mkIf cfg.writing.enable {
-    # Vimwiki
     extraPlugins = with pkgs.vimPlugins; [
       vimwiki
     ];
@@ -62,7 +61,6 @@ in
       vim.cmd("autocmd VimEnter * nested if argc() == 0 | execute 'VimwikiIndex' | endif")
     '';
 
-    # Markdown preview
     plugins.markdown-preview = {
       enable = true;
       settings.filetypes = [
@@ -72,8 +70,6 @@ in
     };
 
     # Distraction-free writing
-    plugins.goyo = {
-      enable = true;
-    };
+    plugins.goyo.enable = true;
   };
 }

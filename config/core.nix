@@ -1,17 +1,11 @@
 { pkgs, ... }:
 {
-  # Buffer and tab management
   plugins.web-devicons.enable = true;
   plugins.web-devicons.autoLoad = true;
 
   plugins.bufferline = {
     enable = true;
     settings.options.diagnostics = "nvim_lsp";
-  };
-
-  # Statusline (currently disabled)
-  plugins.lualine = {
-    enable = false;
   };
 
   # LSP progress indicator
@@ -24,10 +18,7 @@
     };
   };
 
-  # Git integration
-  plugins.gitsigns = {
-    enable = true;
-  };
+  plugins.gitsigns.enable = true;
 
   # Fuzzy finder
   plugins.telescope = {
@@ -69,14 +60,9 @@
   };
 
   # Auto-pairing brackets
-  plugins.nvim-autopairs = {
-    enable = true;
-  };
+  plugins.nvim-autopairs.enable = true;
 
-  # Commenting
-  plugins.comment = {
-    enable = true;
-  };
+  plugins.comment.enable = true;
 
   # Syntax highlighting and parsing
   plugins = {
