@@ -39,17 +39,33 @@
           };
         in
         {
-          checks = {
-            # Run `nix flake check .` to verify that your config is not broken
-            default = nixvimLib.check.mkTestDerivationFromNvim {
-              inherit nvim;
-              name = "nvim";
+          checks =
+            let
+              # Test that the public lib.nixvimConfiguration function works
+              nvim-lib = inputs.self.lib.nixvimConfiguration {
+                inherit pkgs;
+                userConfig = {
+                  myNixvim.features = {
+                    writing.enable = true;
+                  };
+                };
+              };
+            in
+            {
+              # Run `nix flake check .` to verify that your config is not broken
+              default = nixvimLib.check.mkTestDerivationFromNvim {
+                inherit nvim;
+                name = "nvim";
+              };
+              nvim-full = nixvimLib.check.mkTestDerivationFromNvim {
+                nvim = nvim-full;
+                name = "nvim-full";
+              };
+              nvim-lib = nixvimLib.check.mkTestDerivationFromNvim {
+                nvim = nvim-lib;
+                name = "nvim-lib";
+              };
             };
-            nvim-full = nixvimLib.check.mkTestDerivationFromNvim {
-              nvim = nvim-full;
-              name = "nvim-full";
-            };
-          };
 
           packages = {
             # Lets you run `nix run .` to start nixvim
@@ -66,7 +82,7 @@
             let
               actualPkgs = if pkgs != null then pkgs else inputs.nixpkgs.legacyPackages.${system};
             in
-            nixvim.legacyPackages.${actualPkgs.system}.makeNixvimWithModule {
+            nixvim.legacyPackages.${system}.makeNixvimWithModule {
               pkgs = actualPkgs;
               module = {
                 imports = [ ./config ];
