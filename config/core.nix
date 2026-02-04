@@ -20,6 +20,16 @@
 
   plugins.gitsigns.enable = true;
 
+  # Status line
+  plugins.lualine = {
+    enable = true;
+    settings.options = {
+      theme = "gruvbox";
+      section_separators = { left = ""; right = ""; };
+      component_separators = { left = ""; right = ""; };
+    };
+  };
+
   # Fuzzy finder
   plugins.telescope = {
     enable = true;
