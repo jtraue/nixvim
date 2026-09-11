@@ -29,6 +29,14 @@
             inherit pkgs;
             module = import ./config;
           };
+
+          wiki-link-check = pkgs.writers.writePython3Bin "wiki-link-check"
+            { flakeIgnore = [ "E501" ]; }
+            (builtins.readFile ./scripts/wiki_link_check.py);
+
+          wiki-reorg = pkgs.writers.writePython3Bin "wiki-reorg"
+            { flakeIgnore = [ "E501" "W503" ]; makeWrapperArgs = [ "--prefix" "PATH" ":" "${pkgs.git}/bin" ]; }
+            (builtins.readFile ./scripts/wiki_reorg.py);
         in
         {
           checks =
@@ -58,6 +66,11 @@
           packages = {
             # Lets you run `nix run .` to start nixvim
             default = nvim;
+            inherit wiki-link-check wiki-reorg;
+          };
+
+          devShells.default = pkgs.mkShellNoCC {
+            packages = [ wiki-link-check wiki-reorg pkgs.git ];
           };
         };
 

@@ -7,6 +7,9 @@ A modular Neovim configuration built with NixVim.
 ```bash
 # Run default configuration
 nix run github:jtraue/nixvim
+
+# Enter a dev shell with the wiki helper scripts on PATH
+nix develop
 ```
 
 ## Features
@@ -73,7 +76,35 @@ config/
 ├── development.nix  # LSP, lspsaga, trouble, language servers (nixd, bashls)
 ├── spellcheck.nix   # write-good
 └── writing.nix      # vimwiki, render-markdown, zen-mode, twilight
+
+scripts/
+├── wiki_link_check.py  # orphan/broken-link checker for the wiki
+└── wiki_reorg.py       # move wiki files/folders and rewrite links to match
 ```
+
+## Wiki Helper Scripts
+
+Packaged as flake outputs (`wiki-link-check`, `wiki-reorg`) and available on `PATH`
+inside `nix develop`. Both run entirely locally and only ever print file paths and
+link text - never note bodies.
+
+```bash
+nix develop
+
+# Report orphan pages and broken [[...]] / [text](target) links
+wiki-link-check ~/cloud/home/wiki/notes
+
+# Dry-run a folder reorganization from a plain-text moves file
+# (one entry per line: "Old/Path.wiki -> New/Path.wiki" or "Old/Dir/ -> New/Dir/")
+wiki-reorg ~/cloud/home/wiki/notes --moves-file moves.txt
+
+# Actually perform the moves and rewrite links to match (uses `git mv` if the
+# wiki is a git repo)
+wiki-reorg ~/cloud/home/wiki/notes --moves-file moves.txt --apply
+```
+
+Without `nix develop`, use `nix run .#wiki-link-check -- <args>` / `nix run .#wiki-reorg -- <args>`
+(the `--` is required so `nix run` doesn't try to parse the script's own flags).
 
 ## Key Bindings
 
