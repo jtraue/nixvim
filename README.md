@@ -7,9 +7,6 @@ A modular Neovim configuration built with NixVim.
 ```bash
 # Run default configuration
 nix run github:jtraue/nixvim
-
-# Run with all features enabled
-nix run github:jtraue/nixvim#nvim-full
 ```
 
 ## Features
@@ -21,7 +18,7 @@ nix run github:jtraue/nixvim#nvim-full
 | `development.enable` | true | LSP, lspsaga, trouble |
 | `development.nix.enable` | true | Nix support (nixd, statix, nixpkgs-fmt) |
 | `development.bash.enable` | true | Bash support (bashls) |
-| `writing.enable` | false | Writing tools (vimwiki, markdown-preview, goyo) |
+| `writing.enable` | true | Writing tools (vimwiki, render-markdown, zen-mode, twilight) |
 
 ## Usage in NixOS
 
@@ -46,6 +43,7 @@ nix run github:jtraue/nixvim#nvim-full
             userConfig = {
               myNixvim.features = {
                 writing.enable = true;
+                development.bash.enable = false;
               };
             };
           })
@@ -60,8 +58,7 @@ nix run github:jtraue/nixvim#nvim-full
 
 ```nix
 environment.systemPackages = [
-  nixvim-config.packages.x86_64-linux.default    # Base config
-  # nixvim-config.packages.x86_64-linux.nvim-full # All features enabled
+  nixvim-config.packages.x86_64-linux.default
 ];
 ```
 
@@ -75,7 +72,7 @@ config/
 ├── completion.nix   # nvim-cmp
 ├── development.nix  # LSP, lspsaga, trouble, language servers (nixd, bashls)
 ├── spellcheck.nix   # write-good
-└── writing.nix      # vimwiki, markdown-preview, goyo
+└── writing.nix      # vimwiki, render-markdown, zen-mode, twilight
 ```
 
 ## Key Bindings
@@ -94,3 +91,4 @@ config/
 | `K` | Hover documentation |
 | `<leader>ca` | Code action |
 | `<leader>cr` | Rename |
+| `<leader>zz` | Toggle zen mode (writing) |

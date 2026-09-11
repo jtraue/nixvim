@@ -29,14 +29,6 @@
             inherit pkgs;
             module = import ./config;
           };
-          # nvim-full enables all features
-          nvim-full = nvim.extend {
-            myNixvim.features = {
-              writing.enable = true;
-              development.rust.enable = true;
-              development.cpp.enable = true;
-            };
-          };
         in
         {
           checks =
@@ -57,10 +49,6 @@
                 inherit nvim;
                 name = "nvim";
               };
-              nvim-full = nixvimLib.check.mkTestDerivationFromNvim {
-                nvim = nvim-full;
-                name = "nvim-full";
-              };
               nvim-lib = nixvimLib.check.mkTestDerivationFromNvim {
                 nvim = nvim-lib;
                 name = "nvim-lib";
@@ -70,7 +58,6 @@
           packages = {
             # Lets you run `nix run .` to start nixvim
             default = nvim;
-            inherit nvim-full;
           };
         };
 

@@ -32,7 +32,7 @@
         nix.enable = lib.mkDefault true;
         bash.enable = lib.mkDefault true;
       };
-      writing.enable = lib.mkDefault false;
+      writing.enable = lib.mkDefault true;
     };
   };
 }
