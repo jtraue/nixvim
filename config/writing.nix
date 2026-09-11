@@ -3,7 +3,7 @@ let
   cfg = config.myNixvim.features;
   diaryHelper = pkgs.writeShellScriptBin "diary_helper" ''
     cat << EOF
-    # $(date +'%Y WEEK %U')
+    # $(date +'%Y WEEK %V')
 
     # TODO
 
