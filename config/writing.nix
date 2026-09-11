@@ -65,16 +65,48 @@ in
 
       vim.cmd("autocmd VimEnter * nested if argc() == 0 | execute 'VimwikiIndex' | endif")
 
+      -- Turn a bullet entry like "* someone" into a dated meeting-note link
+      -- ("* [[/meeting_notes/YYYY-MM-DD-someone]]") and immediately create/open
+      -- it, wherever in the wiki the entry was typed. The leading "/" makes
+      -- the link root-relative, so it always lands under meeting_notes/
+      -- regardless of which page triggered it (see :h vimwiki-links).
+      local function new_meeting_note_from_bullet()
+          local row = vim.api.nvim_win_get_cursor(0)[1]
+          local line = vim.api.nvim_get_current_line()
+          local indent, bullet, rest = line:match("^(%s*)([%*%-]%s+)(.-)%s*$")
+          if not rest or rest == "" or rest:match("^%[%[") then
+              vim.notify("no bullet entry (e.g. '* someone') on this line", vim.log.levels.WARN)
+              return
+          end
+          local slug = rest:gsub("%s+", "-"):gsub("[^%w%-]", "")
+          if slug == "" then
+              vim.notify("could not build a note name from this line", vim.log.levels.WARN)
+              return
+          end
+          local date = os.date("%Y-%m-%d")
+          local link = "[[/meeting_notes/" .. date .. "-" .. slug .. "]]"
+          vim.api.nvim_set_current_line(indent .. bullet .. link)
+          vim.api.nvim_win_set_cursor(0, { row, #indent + #bullet })
+          vim.cmd("VimwikiFollowLink")
+      end
+
       -- Prose-friendly settings for writing, overriding the code-oriented
       -- globals (textwidth, colorcolumn) set for the rest of the editor.
       vim.api.nvim_create_autocmd("FileType", {
           pattern = { "markdown", "vimwiki" },
-          callback = function()
+          callback = function(args)
               vim.opt_local.wrap = true
               vim.opt_local.linebreak = true
               vim.opt_local.textwidth = 80
               vim.opt_local.colorcolumn = ""
               vim.opt_local.conceallevel = 2
+
+              if args.match == "vimwiki" then
+                  vim.keymap.set("n", "<leader>mn", new_meeting_note_from_bullet, {
+                      buffer = args.buf,
+                      desc = "New meeting note from bullet line",
+                  })
+              end
           end,
       })
     '';

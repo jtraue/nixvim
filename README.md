@@ -123,3 +123,4 @@ Without `nix develop`, use `nix run .#wiki-link-check -- <args>` / `nix run .#wi
 | `<leader>ca` | Code action |
 | `<leader>cr` | Rename |
 | `<leader>zz` | Toggle zen mode (writing) |
+| `<leader>mn` | New meeting note from bullet line (writing, vimwiki buffers) |
