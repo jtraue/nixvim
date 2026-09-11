@@ -124,3 +124,4 @@ Without `nix develop`, use `nix run .#wiki-link-check -- <args>` / `nix run .#wi
 | `<leader>cr` | Rename |
 | `<leader>zz` | Toggle zen mode (writing) |
 | `<leader>mn` | New meeting note from bullet line (writing, vimwiki buffers) |
+| `+` (normal/visual) | Create a lower-case-dashed wiki link from word/selection (vimwiki buffers) |

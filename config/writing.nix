@@ -43,6 +43,7 @@ in
             diary_start_week_monday = true;
             diary_frequency = "weekly";
             vimwiki_table_mappings = 0;
+            links_space_char = "-";
           }
         ];
       };
@@ -108,6 +109,21 @@ in
                   vim.keymap.set("n", "<leader>mn", new_meeting_note_from_bullet, {
                       buffer = args.buf,
                       desc = "New meeting note from bullet line",
+                  })
+
+                  -- Lowercase the word/selection before handing it to
+                  -- vimwiki's own link normalization, so pages created via
+                  -- "+" (with links_space_char = "-") come out fully
+                  -- lower-case-and-dashed on disk, e.g. "my-new-page.wiki".
+                  vim.keymap.set("n", "+", "guiw:VimwikiNormalizeLink 0<CR>", {
+                      buffer = args.buf,
+                      remap = false,
+                      desc = "Create lower-case-dash wiki link from word",
+                  })
+                  vim.keymap.set("v", "+", "gvu:VimwikiNormalizeLink 1<CR>", {
+                      buffer = args.buf,
+                      remap = false,
+                      desc = "Create lower-case-dash wiki link from selection",
                   })
               end
           end,
