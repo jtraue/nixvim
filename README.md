@@ -17,7 +17,7 @@ nix develop
 | Feature | Default | Description |
 |---------|---------|-------------|
 | `completion.enable` | true | Autocompletion (nvim-cmp) |
-| `spellcheck.enable` | true | Grammar checking (write-good) |
+| `spellcheck.enable` | true | Grammar checking (write-good) + German spell file (`spelllang=de`) |
 | `development.enable` | true | LSP, lspsaga, trouble |
 | `development.nix.enable` | true | Nix support (nixd, statix, nixpkgs-fmt) |
 | `development.bash.enable` | true | Bash support (bashls) |
@@ -74,7 +74,7 @@ config/
 ├── core.nix         # UI plugins (bufferline, telescope, treesitter, etc.)
 ├── completion.nix   # nvim-cmp
 ├── development.nix  # LSP, lspsaga, trouble, language servers (nixd, bashls)
-├── spellcheck.nix   # write-good
+├── spellcheck.nix   # write-good, German spell file (de.utf-8.spl/.sug)
 └── writing.nix      # vimwiki, render-markdown, zen-mode, twilight
 
 scripts/
