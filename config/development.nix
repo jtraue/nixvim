@@ -27,12 +27,6 @@ in
         servers = {
           nixd.enable = lib.mkIf cfg.nix.enable true;
           bashls.enable = lib.mkIf cfg.bash.enable true;
-          rust_analyzer = lib.mkIf cfg.rust.enable {
-            enable = true;
-            installCargo = false;
-            installRustc = false;
-          };
-          clangd.enable = lib.mkIf cfg.cpp.enable true;
         };
       };
 

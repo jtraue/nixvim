@@ -21,8 +21,6 @@ nix run github:jtraue/nixvim#nvim-full
 | `development.enable` | true | LSP, lspsaga, trouble |
 | `development.nix.enable` | true | Nix support (nixd, statix, nixpkgs-fmt) |
 | `development.bash.enable` | true | Bash support (bashls) |
-| `development.rust.enable` | false | Rust support (rust-analyzer) |
-| `development.cpp.enable` | false | C++ support (clangd) |
 | `writing.enable` | false | Writing tools (vimwiki, markdown-preview, goyo) |
 
 ## Usage in NixOS
@@ -48,7 +46,6 @@ nix run github:jtraue/nixvim#nvim-full
             userConfig = {
               myNixvim.features = {
                 writing.enable = true;
-                development.rust.enable = true;
               };
             };
           })
@@ -76,7 +73,7 @@ config/
 ├── options.nix      # Feature toggles with defaults
 ├── core.nix         # UI plugins (bufferline, telescope, treesitter, etc.)
 ├── completion.nix   # nvim-cmp
-├── development.nix  # LSP, lspsaga, trouble, language servers
+├── development.nix  # LSP, lspsaga, trouble, language servers (nixd, bashls)
 ├── spellcheck.nix   # write-good
 └── writing.nix      # vimwiki, markdown-preview, goyo
 ```

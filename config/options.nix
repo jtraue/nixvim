@@ -13,12 +13,6 @@
         bash = {
           enable = lib.mkEnableOption "Bash language support";
         };
-        rust = {
-          enable = lib.mkEnableOption "Rust language support";
-        };
-        cpp = {
-          enable = lib.mkEnableOption "C++ language support";
-        };
       };
       writing = {
         enable = lib.mkEnableOption "writing tools (vimwiki, markdown-preview, goyo)";
@@ -37,8 +31,6 @@
         enable = lib.mkDefault true;
         nix.enable = lib.mkDefault true;
         bash.enable = lib.mkDefault true;
-        rust.enable = lib.mkDefault false;
-        cpp.enable = lib.mkDefault false;
       };
       writing.enable = lib.mkDefault false;
     };
