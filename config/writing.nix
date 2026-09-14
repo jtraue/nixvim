@@ -139,6 +139,15 @@ in
       ];
     };
 
+    # Browser-based live markdown preview
+    plugins.markdown-preview = {
+      enable = true;
+      settings.filetypes = [
+        "markdown"
+        "vimwiki"
+      ];
+    };
+
     # Distraction-free writing
     plugins.zen-mode = {
       enable = true;
