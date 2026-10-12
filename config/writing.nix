@@ -98,12 +98,13 @@ in
           callback = function(args)
               vim.opt_local.wrap = true
               vim.opt_local.linebreak = true
-              vim.opt_local.textwidth = 80
+              -- soft-wrap only (via 'wrap'/'linebreak'). textwidth = 0
+              -- rather than trimming 'formatoptions': the markdown
+              -- ftplugin treats list items as comments, so 'c' would
+              -- still hard-wrap bullets at any non-zero width.
+              vim.opt_local.textwidth = 0
               vim.opt_local.colorcolumn = ""
               vim.opt_local.conceallevel = 2
-              -- soft-wrap only (via 'wrap'/'linebreak'): don't let
-              -- 'textwidth' auto-insert hard line breaks while typing.
-              vim.opt_local.formatoptions:remove({ "t", "a" })
 
               if args.match == "vimwiki" then
                   vim.keymap.set("n", "<leader>mn", new_meeting_note_from_bullet, {
